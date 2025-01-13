@@ -2,9 +2,28 @@ print("\n***********************************************************************
 print("\n\t ******** Hi, Welcome to the Temperature Converter! ******** ")
 print("\n*********************************************************************************************\n")
 
+def get_valid_option():
+    while True:
+        selected_option = input("\nSelected Option: ")
+        if selected_option.isdigit() and 1 <= int(selected_option) <= 7:
+            return int(selected_option)
+        else:
+            print("\nWARNING: Please enter a valid option (1-7).")
+
+def get_valid_temperature(prompt, allow_negative=False):
+    while True:
+        try:
+            temp = float(input(prompt))
+            if not allow_negative and temp < 0:
+                print("\nERROR: Temperature cannot be negative for this scale. Please try again.")
+                continue
+            return temp
+        except ValueError:
+            print("\nERROR: Please enter a valid numeric value.")
+
 while True:
-    print("\nChoose a conversion optio from the given menu: \n")
-    print("1- Celcius to Farenhite")
+    print("\nChoose a conversion option from the given menu: \n")
+    print("1- Celsius to Fahrenheit")
     print("2- Fahrenheit to Celsius")
     print("3- Celsius to Kelvin")
     print("4- Kelvin to Celsius")
@@ -12,51 +31,54 @@ while True:
     print("6- Kelvin to Fahrenheit")
     print("7- Exit")
 
-    selected_option = input("\nSelected Option: ")
+    selected_option = get_valid_option()
 
-    if selected_option == "1":
-        celsius = float(input("\nCelsius degree temperature: "))
-        farenhite = (celsius * 9/5) + 32
-        print(f"\n{celsius}°C is equal to {farenhite}°F")
+    if selected_option == 1:
+        celsius = get_valid_temperature("\nCelsius degree temperature: ")
+        fahrenheit = (celsius * 9/5) + 32
+        print(f"\n{celsius}°C is equal to {fahrenheit}°F")
 
-    elif selected_option == "2":
-        farenhite = float(input("\nFarenhite degree temperature: "))
-        celsius = (farenhite - 32) * 5/9
-        print(f"\n{farenhite}°F is equal to {celsius}°C")
+    elif selected_option == 2:
+        fahrenheit = get_valid_temperature("\nFahrenheit degree temperature: ")
+        celsius = (fahrenheit - 32) * 5/9
+        print(f"\n{fahrenheit}°F is equal to {celsius}°C")
 
-    elif selected_option == "3":
-        celsius = float(input("\nCelsius degree temperature: "))
+    elif selected_option == 3:
+        celsius = get_valid_temperature("\nCelsius degree temperature: ")
         kelvin = celsius + 273.15
         print(f"\n{celsius}°C is equal to {kelvin}°K")
 
-    elif selected_option == "4":
-        kelvin = float(input("\nKelvin degree temperature: "))
+    elif selected_option == 4:
+        kelvin = get_valid_temperature("\nKelvin degree temperature (non-negative): ", allow_negative=False)
         celsius = kelvin - 273.15
         print(f"\n{kelvin}°K is equal to {celsius}°C")
 
-    elif selected_option == "5":
-        farenhite = float(input("\nFarenhite degree temperature: "))
-        kelvin = ((farenhite - 32) * 5/9) + 273.15
-        print(f"\n{farenhite}°F is equal to {kelvin}°K")
+    elif selected_option == 5:
+        fahrenheit = get_valid_temperature("\nFahrenheit degree temperature: ")
+        kelvin = ((fahrenheit - 32) * 5/9) + 273.15
+        print(f"\n{fahrenheit}°F is equal to {kelvin}°K")
 
-    elif selected_option == "6":
-        kelvin = float(input("\nKelvin degree temperature: ")) 
-        farenhite =   ((kelvin - 273.15) * 9/5) + 32
-        print(f"\n{kelvin}°K is equal to {farenhite}°F")
+    elif selected_option == 6:
+        kelvin = get_valid_temperature("\nKelvin degree temperature (non-negative): ", allow_negative=False)
+        fahrenheit = ((kelvin - 273.15) * 9/5) + 32
+        print(f"\n{kelvin}°K is equal to {fahrenheit}°F")
 
-    elif selected_option == "7":
+    elif selected_option == 7:
         print("\nExiting... Goodbye!\n")
         break
 
     else:
-        print("\n WARNING: Invalid option! Do you want to choose again?")
-        print("\n- Yes(y)")
-        print("\n- No(n)")
+        print("\nERROR: Invalid option!")
 
-        choice = input("\nChoose one: ").lower()
+    print("\nDo you want to choose again?")
+    print("\n- Yes (y)")
+    print("\n- No (n)")
 
-        if(choice == "y"):
-            continue
-        else:
-            print("\nExiting... Goodbye!\n")
-            break
+    choice = input("\nChoose one: ").strip().lower()
+    while choice not in ["y", "n"]:
+        print("\nERROR: Please enter 'y' for Yes or 'n' for No.")
+        choice = input("\nChoose one: ").strip().lower()
+
+    if choice == "n":
+        print("\nExiting... Goodbye!\n")
+        break
