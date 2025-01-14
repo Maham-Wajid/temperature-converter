@@ -3,6 +3,12 @@ print("\n\t ******** Hi, Welcome to the Temperature Converter! ******** ")
 print("\n*********************************************************************************************\n")
 
 def get_valid_option():
+    """
+    Prompts the user to select a conversion option from the menu.
+
+    Returns:
+        int: A valid option (1 to 7) selected by the user.
+    """
     while True:
         selected_option = input("\nSelected Option: ")
         if selected_option.isdigit() and 1 <= int(selected_option) <= 7:
@@ -11,6 +17,16 @@ def get_valid_option():
             print("\nWARNING: Please enter a valid option (1-7).")
 
 def get_valid_temperature(prompt, allow_negative=False):
+    """
+    Prompts the user to input a valid temperature.
+
+    Args:
+        prompt (str): The message to display when asking for input.
+        allow_negative (bool): Whether to allow negative values. Defaults to False.
+
+    Returns:
+        float: A valid numeric temperature entered by the user.
+    """
     while True:
         try:
             temp = float(input(prompt))
